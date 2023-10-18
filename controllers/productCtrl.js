@@ -1,4 +1,5 @@
 import Product from "../models/productModel.js"
+import User from "../models/userModel.js"
 import Cart from "../models/cartModel.js"
 import asyncHandler from "express-async-handler"
 
@@ -40,23 +41,57 @@ export const updateProduct = asyncHandler(async(req, res) => {
     }
 })
 
-export const addToCart = asyncHandler(async(req, res) => {
-    try {
-        const addProduct = await Cart.create(req.body)
-        res.json(addProduct)
-    } catch (error) {
-        throw new Error(error)
-    }
-})
+// export const addToCart = asyncHandler(async(req, res) => {
+//     // const product = { userId: id ,title, price, size, color}
+//     try {
+//         const addProduct = await Cart.create(req.body)
+//         res.json(addProduct)
+//     } catch (error) {
+//         throw new Error(error)
+//     }
+// })
 
-export const getCart = asyncHandler(async(req, res) => {
+export const addToCart = asyncHandler(async (req, res) => {
+    const { productId, color, size, price ,title, image} = req.body;
+    const {user_id} = req.user;
     try {
-        const get = await Cart.find()
-        res.json(get)
+      let newCart = await new Cart({
+        userId: user_id,
+        productId,
+        color,
+        price,
+        size,
+        title,
+        image
+      }).save();
+      res.json(newCart);
     } catch (error) {
-        throw new Error(error)
+      throw new Error(error);
     }
-})
+  });
+
+// export const getCart = asyncHandler(async(req, res) => {
+//     const {userId} = req.body
+//     console.log(userId)
+//     try {
+//         const get = await Cart.find({userId})
+//         res.json(get)
+//     } catch (error) {
+//         throw new Error(error)
+//     }
+// })
+
+export const getCart = asyncHandler(async (req, res) => {
+  const {_id} = req.body;
+    try {
+      const cart = await Cart.find({userId: _id})
+        .populate("productId")
+        .populate("color");
+      res.json(cart);
+    } catch (error) {
+      throw new Error(error);
+    }
+  });
 
 export const deleteProduct = asyncHandler(async(req, res) => {
     console.log(req.body)

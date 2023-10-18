@@ -23,7 +23,6 @@ export const createAccount = asyncHandler(async(req, res) => {
 })
 
 export const login = asyncHandler(async(req, res) => {
-    console.log(req.body)
     const {name, email, password} = req.body
     try {
         const theUser = await User.findOne({email})
@@ -43,7 +42,7 @@ export const login = asyncHandler(async(req, res) => {
 export const getUsers = asyncHandler(async(req, res) => {
     try {
         const getUsers = await User.find()
-        res.json(getUsers)        
+        res.json(getUsers)
     } catch (error) {
         throw new Error(error)
     }
