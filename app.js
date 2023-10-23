@@ -23,9 +23,9 @@ app.use(morgan("dev"))
 //   next();
 // });
 
-// app.use("/", userRoute)
+app.use("/", userRoute)
 app.use("/", productRoute)
-// app.use("/", orderRoute)
+app.use("/", orderRoute)
 
 mongoose
   .connect(

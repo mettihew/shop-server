@@ -93,11 +93,11 @@ export const getCart = asyncHandler(async (req, res) => {
   });
 
   export const deleteFromCart = asyncHandler(async (req, res) => {
+    console.log('--------->',req.body,'<-----------');
       try {
-        const del = await Cart.deleteOne(req.body)
+        const del = await Cart.findByIdAndDelete(req.body)
         res.json(del);
       } catch (error) {
-        console.log(error);
         throw new Error(error);
       }
     });
