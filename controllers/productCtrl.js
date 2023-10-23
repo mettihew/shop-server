@@ -1,5 +1,4 @@
 import Product from "../models/productModel.js"
-import User from "../models/userModel.js"
 import Cart from "../models/cartModel.js"
 import asyncHandler from "express-async-handler"
 
@@ -93,14 +92,13 @@ export const getCart = asyncHandler(async (req, res) => {
     }
   });
 
-export const deleteProduct = asyncHandler(async(req, res) => {
-    console.log(req.body)
-    try {
-        const del = await Product.deleteMany()
-        // const del = await Product.findByIdAndDelete(req.body)
-        res.json(del)
-    } catch (error) {
-        throw new Error(error)
-    }
-})
+  export const deleteFromCart = asyncHandler(async (req, res) => {
+      try {
+        const del = await Cart.deleteOne(req.body)
+        res.json(del);
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
+      }
+    });
 

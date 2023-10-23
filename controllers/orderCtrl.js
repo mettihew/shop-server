@@ -21,7 +21,7 @@ export const getOrder = asyncHandler(async(req, res) => {
 })
 export const deleteOrder = asyncHandler(async(req, res) => {
     try {
-        const get = await Order.deleteMany()
+        // const get = await Order.deleteMany()
         res.json(get)
     } catch (error) {
         throw new Error(error)
@@ -30,7 +30,7 @@ export const deleteOrder = asyncHandler(async(req, res) => {
 
 export const deleteCart = asyncHandler(async(req, res) => {
     try {
-        const del = await Cart.deleteMany()
+        // const del = await Cart.deleteMany()
         res.json(del)
     } catch (error) {
         throw new Error(error)

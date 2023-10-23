@@ -7,5 +7,4 @@ router.post("/order/get-order", getOrder)
 router.delete("/order/delete-order", deleteOrder)
 router.delete("/order/delete-cart", deleteCart)
 
-
 export default router
